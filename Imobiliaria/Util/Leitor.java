@@ -3,21 +3,26 @@ import java.util.Scanner;
 
 public class Leitor {
     private Scanner sc = new Scanner(System.in);
+    private int totalLeiturasRealizadas = 0;
+    private int contadorErros = 0;
+    private String ultimaAcao = "";
 
     public String lerString(String msg) {
         System.out.print(msg);
+        totalLeiturasRealizadas++;
         return sc.nextLine();
     }
 
     public int lerInteiro(String msg) {
         while (true) {
             System.out.print(msg);
-            String entrada = sc.nextLine().trim(); // Lê como texto e tira espaços em branco
-
+            String entrada = sc.nextLine().trim();
+            totalLeiturasRealizadas++;
             try {
-                return Integer.parseInt(entrada); // Tenta converter para int
+                return Integer.parseInt(entrada);
             } catch (NumberFormatException e) {
-                System.out.println(">>> ERRO: Por favor, digite apenas numeros inteiros (ex: 12).");
+                contadorErros++;
+                System.out.println(">>> ERRO: Digite apenas números inteiros.");
             }
         }
     }
@@ -25,16 +30,18 @@ public class Leitor {
     public double lerDouble(String msg) {
         while (true) {
             System.out.print(msg);
-            String entrada = sc.nextLine().trim(); // Lê como texto
-
-            // Troca a vírgula por ponto para não dar erro
-            entrada = entrada.replace(",", ".");
-
+            String entrada = sc.nextLine().trim().replace(",", ".");
+            totalLeiturasRealizadas++;
             try {
                 return Double.parseDouble(entrada);
             } catch (NumberFormatException e) {
-                System.out.println(">>> ERRO: Por favor, digite um valor valido (ex: 1500.50).");
+                contadorErros++;
+                System.out.println(">>> ERRO: Digite um valor válido (ex: 1500.50).");
             }
         }
+    }
+
+    public void exibirEstatisticaLeitura() {
+        System.out.println("Leituras: " + totalLeiturasRealizadas + " | Erros evitados: " + contadorErros);
     }
 }

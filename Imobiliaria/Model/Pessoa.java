@@ -3,18 +3,22 @@ package Imobiliaria.Model;
 public abstract class Pessoa {
     private String nome;
     private String cpf;
-    private String rg;
-    private String enderecoTexto;
+    private String telefone;
+    private String email;
 
-    public Pessoa(String nome, String cpf, String rg, String enderecoTexto) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.rg = rg;
-        this.enderecoTexto = enderecoTexto;
+    public Pessoa(String nome, String cpf, String telefone, String email) {
+        this.nome = nome; this.cpf = cpf; this.telefone = telefone; this.email = email;
     }
 
     public String getNome() { return nome; }
     public String getCpf() { return cpf; }
-    public String getRg() { return rg; }
-    public String getEnderecoTexto() { return enderecoTexto; }
+
+    public void atualizarContato(String novoTelefone, String novoEmail) {
+        this.telefone = novoTelefone;
+        this.email = novoEmail;
+    }
+
+    public String obterResumoPessoa() {
+        return "Nome: " + nome + " | Contato: " + telefone;
+    }
 }
